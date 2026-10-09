@@ -266,6 +266,11 @@ void header::load(std::istream & is, const version & version) {
 		is >> util::binary_string(architectures_allowed_expr);
 		is >> util::binary_string(architectures_installed_in_64bit_mode_expr);
 	}
+	if(version >= INNO_VERSION(6, 4, 3)) {
+		// Added in Inno Setup 6.4.3 (SetupHeaderStrings 32 -> 33)
+		std::string close_applications_filter_excludes;
+		is >> util::binary_string(close_applications_filter_excludes);
+	}
 	if(version >= INNO_VERSION(5, 2, 5)) {
 		is >> util::ansi_string(license_text);
 		is >> util::ansi_string(info_before);
