@@ -31,7 +31,13 @@ jobs:
       run: cmake --build build
     - name: Locate binary
       run: ls -la build/*.exe
+    - name: Collect binary and runtime DLLs
+      run: |
+        mkdir -p dist
+        cp build/innoextract.exe dist/
+        ldd build/innoextract.exe | grep '/ucrt64/bin/' | sed 's/.*=> //; s/ (0x.*//' | sort -u | while read -r f; do cp "$f" dist/; done
+        ls -la dist
     - uses: actions/upload-artifact@v4
       with:
         name: innoextract-windows
-        path: build/innoextract.exe
+        path: dist
