@@ -53,7 +53,9 @@ int console_width();
 
 } // namespace util
 
+#ifndef __MINGW32__
 using util::isatty;
+#endif
 
 #endif // defined(_WIN32)
 
